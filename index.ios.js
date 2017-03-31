@@ -1,10 +1,9 @@
-'use strict';
-
-import React from 'react';
-import App from './app/containers/App';
-
 import {
-    AppRegistry
+  AppRegistry
 } from 'react-native';
 
-AppRegistry.registerComponent('dotaKeep', () => App)
+
+import App from './src/App';
+
+
+AppRegistry.registerComponent('dotaKeep', () => App);
