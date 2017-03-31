@@ -9,63 +9,57 @@ import {
 } from 'react-native';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import _ from 'lodash';
-import { connect } from 'react-redux';
+import * as _ from 'lodash';
 import NavigationBar from 'react-native-navbar';
 import { Actions } from 'react-native-router-flux';
 
+import { connect } from 'react-redux';
 import base from '../themes/BaseStyles';
 import Fonts from '../themes/Fonts';
 
 
-export const mapStateToProps = state => ({
-  alpha: state.settingsState.alpha,
-  mod: state.settingsState.mod,
-  legend: state.settingsState.legend,
-  secondLegend: state.settingsState.secondLegend
-});
-
 class DeepNavBar extends Component {
 
-  constructor(props) {
-    super(props);
-    this.backPressed = this.backPressed.bind(this);
-  }
-
-  backPressed() {
+  static backPressed() {
     Actions.pop();
   }
 
+  componentWillMount() {
+    this.backPressed = this.backPressed.bind(this);
+  }
+
   render() {
+    const title = <Text style={[styles.title, { color: this.props.secondLegend }]}>{this.props.title}</Text>;
 
-    title = <Text style={[styles.title, { color: this.props.secondLegend }]}>{this.props.title}</Text>
-
-    var leftElements = (
+    const leftElements = (
       <View style={styles.navItemView}>
-        <TouchableOpacity onPress={() => {
-          this.backPressed()
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            this.backPressed();
+          }}
+        >
           <View style={styles.leftNavButtonView}>
-            <FontAwesome name="chevron-left" size={20} allowFontScaling={false} color={this.props.legend}/>
+            <FontAwesome name="chevron-left" size={20} allowFontScaling={false} color={this.props.legend} />
           </View>
         </TouchableOpacity>
         {title}
       </View>
-    )
+    );
 
-    var rightElements = (
+    const rightElements = (
       <View />
-    )
+    );
 
-    var statusBarPadding;
-    var navBarMargin;
-    if (Platform.OS == "ios") {
-      statusBarPadding = <View style={[styles.statusBarPadding, { backgroundColor: this.props.mod }]}/>;
+    let statusBarPadding;
+    let navBarMargin;
+    if (Platform.OS === 'ios') {
+      statusBarPadding = <View style={[styles.statusBarPadding, { backgroundColor: this.props.mod }]} />;
       navBarMargin = -20;
     } else {
       statusBarPadding = <View />;
       navBarMargin = 0;
     }
+
 
     return (
       <View style={styles.navBarContainer}>
@@ -80,7 +74,7 @@ class DeepNavBar extends Component {
           rightButton={rightElements}
         />
       </View>
-    )
+    );
   }
 
 }
@@ -129,5 +123,11 @@ const baseStyles = _.extend(base.general, {
 });
 
 const styles = StyleSheet.create(baseStyles);
+
+const mapStateToProps = (state) => {
+  const { alpha, mod, legend, secondLegend } = state.settingsState;
+
+  return { alpha, mod, legend, secondLegend };
+};
 
 export default connect(mapStateToProps)(DeepNavBar);
