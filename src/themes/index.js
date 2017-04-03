@@ -1,11 +1,5 @@
-import Colors from './Colors';
-import Fonts from './Fonts';
-import Metrics from './Metrics';
-import BaseStyles from './BaseStyles';
+export Colors from './Colors';
+export Fonts from './Fonts';
+export Metrics from './Metrics';
+export BaseStyles from './BaseStyles';
 
-export {
-    Colors,
-    Fonts,
-    Metrics,
-    BaseStyles
-}
