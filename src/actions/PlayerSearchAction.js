@@ -1,5 +1,6 @@
-import { fetchAPI } from '../utils/fetch';
 import { Actions } from 'react-native-router-flux';
+import { fetchAPI } from '../utils/fetch';
+
 
 import {
   REQUEST_PLAYERS,
@@ -26,25 +27,24 @@ function receiveEmptyPlayers() {
   };
 }
 
-export function fetchPlayers(playerName) {
-  var endpoint = "search/?q=" + playerName;
-  return dispatch => {
+export default (playerName) => {
+  const endpoint = `search/?q=${playerName}`;
+  return (dispatch) => {
     dispatch(requestPlayers());
 
-    var jsonData;
     return fetchAPI(endpoint)
     .then((json) => {
-      if (json.length == 0) {
+      if (json.length === 0) {
         dispatch(receiveEmptyPlayers());
       } else {
-        dispatch(receivePlayers(json));
+        const results = json.slice(0, 40); // Take only first 40 results
+        dispatch(receivePlayers(results));
         Actions.searchresults();
-
       }
     })
     .catch((error) => {
-      console.log("Action - FETCH PLAYERS ERROR - " + error);
+      console.log(`Action - FETCH PLAYERS ERROR - ${error}`);
       dispatch(receiveEmptyPlayers());
-    })
+    });
   };
-}
+};

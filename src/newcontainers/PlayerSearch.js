@@ -10,10 +10,7 @@ import {
 import { connect } from 'react-redux';
 
 import _ from 'lodash';
-import { bindActionCreators } from 'redux';
-import * as playerSearchActions from '../actions/PlayerSearchAction';
-import * as settingsActions from '../actions/SettingsAction';
-import * as favouritesActions from '../actions/FavouritesAction';
+import fetchPlayers from '../actions/PlayerSearchAction';
 
 import Colors from '../themes/Colors';
 import base from '../themes/BaseStyles';
@@ -48,12 +45,6 @@ export const mapStateToProps = (state) => {
   });
 };
 
-export const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(playerSearchActions, dispatch),
-  settingsActions: bindActionCreators(settingsActions, dispatch),
-  favouritesActions: bindActionCreators(favouritesActions, dispatch)
-});
-
 class PlayerSearch extends Component {
 
   componentWillMount() {
@@ -66,7 +57,7 @@ class PlayerSearch extends Component {
 
 
   searchPlayer() {
-    this.props.actions.fetchPlayers(this.state.searchInput);
+    this.props.fetchPlayers(this.state.searchInput);
   }
 
   render() {
@@ -150,4 +141,4 @@ const baseStyles = _.extend(base.general,
 );
 const styles = StyleSheet.create(baseStyles);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerSearch);
+export default connect(mapStateToProps, { fetchPlayers })(PlayerSearch);
