@@ -1,4 +1,5 @@
 import { fetchAPI } from '../utils/fetch';
+import { Actions } from 'react-native-router-flux';
 
 import {
   REQUEST_PLAYERS,
@@ -37,6 +38,8 @@ export function fetchPlayers(playerName) {
         dispatch(receiveEmptyPlayers());
       } else {
         dispatch(receivePlayers(json));
+        Actions.searchresults();
+
       }
     })
     .catch((error) => {

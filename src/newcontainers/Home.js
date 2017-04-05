@@ -1,37 +1,37 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { TabViewAnimated, TabBar } from 'react-native-tab-view';
-import PlayerSearch from '../containers/PlayerSearch';
+import _ from 'lodash';
+import PlayerSearch from '../newcontainers/PlayerSearch';
+import globalStyles from '../themes/Styles';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  tabbar: {
-    backgroundColor: '#455A64'
-  },
-  page: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  indicator: {
-    backgroundColor: '#ffeb3b',
-  },
-  label: {
-    color: '#fff',
-    fontWeight: '400',
-  },
-  tab: {
-    padding: 5
-  }
-});
+
+const styles = _.extend(globalStyles,
+  {
+    container: {
+      flex: 1
+    },
+    tabbar: {
+      backgroundColor: '#455A64'
+    },
+    page: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    indicator: {
+      backgroundColor: '#ffeb3b',
+    },
+    label: {
+      color: '#fff',
+      fontWeight: '400',
+    },
+    tab: {
+      padding: 5
+    }
+  });
 
 class Home extends Component {
-
-  static title = 'Scrollable top bar';
-
-
   state = {
     index: 1,
     routes: [
@@ -69,7 +69,7 @@ class Home extends Component {
   render() {
     return (
       <TabViewAnimated
-        style={[styles.container, this.props.style]}
+        style={[styles.container, styles.mainContainer, this.props.style]}
         navigationState={this.state}
         renderScene={this.renderScene}
         renderHeader={this.renderHeader}

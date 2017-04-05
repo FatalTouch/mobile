@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SplashScreen from 'react-native-smart-splash-screen';
 import { Scene, Router } from 'react-native-router-flux';
 import Home from './newcontainers/Home';
-
+import PlayerSearchResult from './newcontainers/PlayerSearchResult';
 
 export default class OpenDota extends Component {
 
@@ -17,7 +17,8 @@ export default class OpenDota extends Component {
   render() {
     return (
       <Router>
-        <Scene key="home" title="Home" component={Home} hideNavBar />
+        <Scene key="home" title="Home" component={Home} initial />
+        <Scene key="searchresults" title="Search Results" component={PlayerSearchResult} />
       </Router>
     );
   }

@@ -4,7 +4,7 @@ import {
   RECEIVE_EMPTY_PLAYERS
 } from '../actions/types';
 
-var initialState = { isLoadingPlayers: false, isEmptyPlayers: false, players: [] };
+const initialState = { isLoadingPlayers: false, isEmptyPlayers: false, players: [] };
 
 export default function playerListState(state = initialState, action = {}) {
   switch (action.type) {
